@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 10:53:35 by lmartin           #+#    #+#              #
-#    Updated: 2020/09/16 12:57:54 by lmartin          ###   ########.fr        #
+#    Updated: 2020/09/16 15:17:14 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,8 @@ RM			=	rm -rf
 
 DIR_LIBFT		=	./libft/
 
+DIR_LIBFT_HEADERS	=	./libft/includes/
+
 DIR_HEADERS		=	./includes/
 
 DIR_SRCS		=	./srcs/
@@ -86,13 +88,15 @@ SUB_DIR_OBJS	=	$(SUB_DIRS:%=$(DIR_OBJS)%)
 
 # FILES #
 
-SRCS			=	free.c \
-					malloc.c \
+SRCS			=	malloc.c \
+					free.c \
 					realloc.c
 
 # COMPILED_SOURCES #
 
 LIBFT		=	$(DIR_LIBFT)libft.a
+
+LIB_FLAGS	=	-L$(DIR_LIBFT) -lft
 
 OBJS		=	$(SRCS:%.c=$(DIR_OBJS)%.o)
 
@@ -114,11 +118,8 @@ $(NAME):		$(LINKED_NAME)
 
 $(LINKED_NAME):	$(LIBFT) $(OBJS)
 				@printf "\033[2K\r$(_GREEN) All files has been compiled into '$(DIR_OBJS)'. $(_END)✅\n"
-				@ar rc $(LINKED_NAME) $(OBJS)
-				@ranlib $(LINKED_NAME)
+				@$(CC) $(CC_FLAGS) $(LIB_FLAGS) $(OBJS) -shared -o $(LINKED_NAME)
 				@printf "$(_GREEN) Library '$(LINKED_NAME)' created. $(_END)✅\n"
-				@printf "$(_BLUE) Copy '$(LIBFT)' to '$(NAME)' $(_END)✅\n"
-				@cp -rf $(LIBFT) ./$(LINKED_NAME)
 
 
 $(LIBFT):
@@ -132,7 +133,7 @@ $(OBJS):		| $(DIR_OBJS)
 
 $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 				@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
-				@$(CC) $(CC_FLAGS) -I $(DIR_HEADERS) -c $< -o $@
+				@$(CC) $(CC_FLAGS) -fPIC -I $(DIR_HEADERS) -I $(DIR_LIBFT_HEADERS) -c $< -o $@
 
 $(DIR_OBJS):	$(SUB_DIR_OBJS)
 

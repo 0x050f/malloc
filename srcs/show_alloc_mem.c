@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   realloc.c                                          :+:      :+:    :+:   */
+/*   show_alloc_mem.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 12:56:50 by lmartin           #+#    #+#             */
-/*   Updated: 2020/09/16 14:39:40 by lmartin          ###   ########.fr       */
+/*   Created: 2020/09/16 13:01:23 by lmartin           #+#    #+#             */
+/*   Updated: 2020/09/16 13:14:05 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void		*realloc(void *ptr, size_t size)
+void		show_alloc_mem(void)
 {
-	ft_strlen("loool");
-	(void)ptr;
-	(void)size;
-	return (NULL);
+	return ;
 }

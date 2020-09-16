@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 12:56:14 by lmartin           #+#    #+#             */
-/*   Updated: 2020/09/16 12:56:44 by lmartin          ###   ########.fr       */
+/*   Updated: 2020/09/16 14:40:00 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		free(void *ptr)
 {
+	ft_strlen("loool");
 	(void)ptr;
 	return ;
 }
