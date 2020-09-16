@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 11:18:31 by lmartin           #+#    #+#             */
-/*   Updated: 2020/09/17 00:36:43 by lmartin          ###   ########.fr       */
+/*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
+/*   Updated: 2020/09/17 01:11:51 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void		*malloc(size_t size)
+int		main(void)
 {
-	(void) size;
-	char str[]= "salut";
-
-	write(1, str, ft_strlen(str));
-	return (NULL);
+	int		i;
+	
+	(void)malloc(16);
+	i = 0;
+	while (i < 1024)
+		i++;
+	return (i);
 }

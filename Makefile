@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 10:53:35 by lmartin           #+#    #+#              #
-#    Updated: 2020/09/16 15:17:14 by lmartin          ###   ########.fr        #
+#    Updated: 2020/09/17 01:10:56 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ RM			=	rm -rf
 
 DIR_LIBFT		=	./libft/
 
-DIR_LIBFT_HEADERS	=	./libft/includes/
+DIR_LIBFT_HEADERS	=	$(DIR_LIBFT)includes/
 
 DIR_HEADERS		=	./includes/
 
@@ -88,6 +88,8 @@ SUB_DIR_OBJS	=	$(SUB_DIRS:%=$(DIR_OBJS)%)
 
 # FILES #
 
+MAIN_FILE		=	main.c
+
 SRCS			=	malloc.c \
 					free.c \
 					realloc.c
@@ -96,13 +98,19 @@ SRCS			=	malloc.c \
 
 LIBFT		=	$(DIR_LIBFT)libft.a
 
-LIB_FLAGS	=	-L$(DIR_LIBFT) -lft
+LIBFT_FLAGS	=	-L$(DIR_LIBFT) -lft
 
 OBJS		=	$(SRCS:%.c=$(DIR_OBJS)%.o)
 
+MAIN_OBJ	=	$(MAIN_FILE:%c=%.o)
+
 NAME		=	libft_malloc.so
 
-LINKED_NAME =	libft_malloc_$(HOSTTYPE).so
+DYNAMIC_LIB =	libft_malloc_$(HOSTTYPE).so
+
+STATIC_LIB	=	libft_malloc.a
+
+MAIN		=	main
 
 # **************************************************************************** #
 
@@ -112,14 +120,14 @@ all:			$(NAME)
 
 # VARIABLES RULES #
 
-$(NAME):		$(LINKED_NAME)
-				@ln -sf $(LINKED_NAME) $(NAME)
-				@printf "$(_GREEN) Library '$(LINKED_NAME)' linked as '$(NAME)'. $(_END)✅\n"
+$(NAME):		$(DYNAMIC_LIB)
+				@ln -sf $(DYNAMIC_LIB) $(NAME)
+				@printf "$(_GREEN) Library '$(DYNAMIC_LIB)' linked as '$(NAME)'. $(_END)✅\n"
 
-$(LINKED_NAME):	$(LIBFT) $(OBJS)
+$(DYNAMIC_LIB):	$(LIBFT) $(OBJS)
 				@printf "\033[2K\r$(_GREEN) All files has been compiled into '$(DIR_OBJS)'. $(_END)✅\n"
-				@$(CC) $(CC_FLAGS) $(LIB_FLAGS) $(OBJS) -shared -o $(LINKED_NAME)
-				@printf "$(_GREEN) Library '$(LINKED_NAME)' created. $(_END)✅\n"
+				@$(CC) $(CC_FLAGS) $(LIBFT_FLAGS) $(OBJS) -shared -o $(DYNAMIC_LIB)
+				@printf "$(_GREEN) Library '$(DYNAMIC_LIB)' created. $(_END)✅\n"
 
 
 $(LIBFT):
@@ -127,13 +135,22 @@ $(LIBFT):
 				@$(MAKE) -C $(DIR_LIBFT) MAKEFLAGS=
 				@printf "$(_BLUE) Back in malloc's makefile $(_END)\n"
 
+$(MAIN):		$(NAME) $(STATIC_LIB)
+				@$(CC) $(CC_FLAGS) -L. -lft_malloc -I $(DIR_HEADERS) -I $(DIR_LIBFT_HEADERS) $(MAIN_FILE) -o $(MAIN)
+				@printf "$(_GREEN) Executable '$(MAIN)' compiled. $(_END)✅\n"
+
+$(STATIC_LIB):
+				@cp -f $(LIBFT) ./$(STATIC_LIB)
+				@ar rc $(STATIC_LIB) $(OBJS)
+				@ranlib $(STATIC_LIB)
+
 # COMPILED_SOURCES RULES #
 
 $(OBJS):		| $(DIR_OBJS)
 
 $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 				@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
-				@$(CC) $(CC_FLAGS) -fPIC -I $(DIR_HEADERS) -I $(DIR_LIBFT_HEADERS) -c $< -o $@
+				@$(CC) $(CC_FLAGS) -I $(DIR_HEADERS) -I $(DIR_LIBFT_HEADERS) -c $< -o $@
 
 $(DIR_OBJS):	$(SUB_DIR_OBJS)
 
@@ -151,10 +168,14 @@ clean:
 				@printf "$(_RED) '"$(DIR_OBJS)"' has been deleted. $(_END)🗑️\n"
 
 fclean:			clean
+				@$(RM) $(MAIN)
+				@printf "$(_RED) '"$(MAIN)"' has been deleted. $(_END)🗑️\n"
+				@$(RM) $(STATIC_LIB)
+				@printf "$(_RED) '"$(STATIC_LIB)"' has been deleted. $(_END)🗑️\n"
 				@$(RM) $(NAME)
 				@printf "$(_RED) '"$(NAME)"' has been deleted. $(_END)🗑️\n"
-				@$(RM) $(LINKED_NAME)
-				@printf "$(_RED) '"$(LINKED_NAME)"' has been deleted. $(_END)🗑️\n"
+				@$(RM) $(DYNAMIC_LIB)
+				@printf "$(_RED) '"$(DYNAMIC_LIB)"' has been deleted. $(_END)🗑️\n"
 
 norm:
 				@printf "$(_BLUE) make norm -C $(DIR_LIBFT)$(_END)\n"
