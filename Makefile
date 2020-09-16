@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 10:53:35 by lmartin           #+#    #+#              #
-#    Updated: 2020/09/16 12:46:18 by lmartin          ###   ########.fr        #
+#    Updated: 2020/09/16 12:57:54 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,9 @@ SUB_DIR_OBJS	=	$(SUB_DIRS:%=$(DIR_OBJS)%)
 
 # FILES #
 
-SRCS			=	malloc.c
+SRCS			=	free.c \
+					malloc.c \
+					realloc.c
 
 # COMPILED_SOURCES #
 
@@ -154,10 +156,11 @@ fclean:			clean
 				@printf "$(_RED) '"$(LINKED_NAME)"' has been deleted. $(_END)🗑️\n"
 
 norm:
-				@$(NORMINETTE) $(DIR_SRCS)
-				@$(NORMINETTE) $(DIR_HEADERS)
 				@printf "$(_BLUE) make norm -C $(DIR_LIBFT)$(_END)\n"
 				@$(MAKE) norm -C $(DIR_LIBFT)
+				@printf "$(_BLUE) Back in malloc's makefile $(_END)\n"
+				@$(NORMINETTE) $(DIR_SRCS)
+				@$(NORMINETTE) $(DIR_HEADERS)
 
 re:				fclean all
 
