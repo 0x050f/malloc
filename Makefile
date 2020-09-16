@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 10:53:35 by lmartin           #+#    #+#              #
-#    Updated: 2020/09/16 11:43:04 by lmartin          ###   ########.fr        #
+#    Updated: 2020/09/16 12:46:18 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,13 +90,13 @@ SRCS			=	malloc.c
 
 # COMPILED_SOURCES #
 
-LIBFT		=	libft.a
+LIBFT		=	$(DIR_LIBFT)libft.a
 
 OBJS		=	$(SRCS:%.c=$(DIR_OBJS)%.o)
 
-NAME		=	libft_malloc_$(HOSTTYPE).so
+NAME		=	libft_malloc.so
 
-LINKED_NAME =	libft_malloc.so
+LINKED_NAME =	libft_malloc_$(HOSTTYPE).so
 
 # **************************************************************************** #
 
@@ -106,19 +106,23 @@ all:			$(NAME)
 
 # VARIABLES RULES #
 
-$(NAME):		$(LIBFT) $(OBJS)
-				@printf "\033[2K\r$(_GREEN) All files compiled into '$(DIR_OBJS)'. $(_END)✅\n"
-				@ar rc $(NAME) $(OBJS)
-				@ranlib $(NAME)
-				@printf "$(_GREEN) Library '$(NAME)' created. $(_END)✅\n"
-				@ln -s $(LINKED_NAME) libft_malloc_$(HOSTTYPE).so
-				@printf "$(_GREEN) Library '$(NAME)' linked as $(LINKED_NAME). $(_END)✅\n"
+$(NAME):		$(LINKED_NAME)
+				@ln -sf $(LINKED_NAME) $(NAME)
+				@printf "$(_GREEN) Library '$(LINKED_NAME)' linked as '$(NAME)'. $(_END)✅\n"
+
+$(LINKED_NAME):	$(LIBFT) $(OBJS)
+				@printf "\033[2K\r$(_GREEN) All files has been compiled into '$(DIR_OBJS)'. $(_END)✅\n"
+				@ar rc $(LINKED_NAME) $(OBJS)
+				@ranlib $(LINKED_NAME)
+				@printf "$(_GREEN) Library '$(LINKED_NAME)' created. $(_END)✅\n"
+				@printf "$(_BLUE) Copy '$(LIBFT)' to '$(NAME)' $(_END)✅\n"
+				@cp -rf $(LIBFT) ./$(LINKED_NAME)
+
 
 $(LIBFT):
 				@printf "$(_BLUE) make -C $(DIR_LIBFT) $(_END)\n"
 				@$(MAKE) -C $(DIR_LIBFT) MAKEFLAGS=
-				@printf "$(_BLUE) Copy '$(LIBFT)' compiled in $(DIR_LIBFT) to . $(_END)✅\n"
-				@cp -rf $(DIR_LIBFT)$(LIBFT) ./$(LIBFT)
+				@printf "$(_BLUE) Back in malloc's makefile $(_END)\n"
 
 # COMPILED_SOURCES RULES #
 
@@ -136,15 +140,18 @@ $(SUB_DIR_OBJS):
 # OBLIGATORY PART #
 
 clean:
+				@printf "$(_BLUE) make fclean -C $(DIR_LIBFT)$(_END)\n"
+				@$(MAKE) fclean -C $(DIR_LIBFT)
+				@printf "$(_BLUE) Back in malloc's makefile $(_END)\n"
 				@$(RM) $(LIBFT)
 				@$(RM) $(DIR_OBJS)
 				@printf "$(_RED) '"$(DIR_OBJS)"' has been deleted. $(_END)🗑️\n"
-				@printf "$(_BLUE) make fclean -C $(DIR_LIBFT)$(_END)\n"
-				@$(MAKE) fclean -C $(DIR_LIBFT)
 
 fclean:			clean
 				@$(RM) $(NAME)
 				@printf "$(_RED) '"$(NAME)"' has been deleted. $(_END)🗑️\n"
+				@$(RM) $(LINKED_NAME)
+				@printf "$(_RED) '"$(LINKED_NAME)"' has been deleted. $(_END)🗑️\n"
 
 norm:
 				@$(NORMINETTE) $(DIR_SRCS)

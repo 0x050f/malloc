@@ -6,13 +6,15 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:18:31 by lmartin           #+#    #+#             */
-/*   Updated: 2020/09/16 11:19:15 by lmartin          ###   ########.fr       */
+/*   Updated: 2020/09/16 12:45:24 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-int			main(int argc, char *argv[])
+void		*malloc(size_t size)
 {
-	return (0);
+	(void)size;
+	size = 1;
+	return (NULL);
 }
