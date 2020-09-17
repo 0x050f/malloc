@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 10:53:35 by lmartin           #+#    #+#              #
-#    Updated: 2020/09/17 01:10:56 by lmartin          ###   ########.fr        #
+#    Updated: 2020/09/17 03:06:12 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ CC			=	gcc
 
 CC_FLAGS	=	-Wall -Wextra -Werror
 
+SANITIZE	=	-g3 -fsanitize=address
 
 # DELETE #
 
@@ -81,6 +82,8 @@ DIR_HEADERS		=	./includes/
 DIR_SRCS		=	./srcs/
 
 DIR_OBJS		=	./compiled_srcs/
+
+DIR_MAIN_OBJS	=	./compiled_srcs/
 
 SUB_DIRS		=	.
 
@@ -100,9 +103,9 @@ LIBFT		=	$(DIR_LIBFT)libft.a
 
 LIBFT_FLAGS	=	-L$(DIR_LIBFT) -lft
 
-OBJS		=	$(SRCS:%.c=$(DIR_OBJS)%.o)
+MAIN_OBJ	=	$(MAIN_FILE:%.c=$(DIR_OBJS)%.o)
 
-MAIN_OBJ	=	$(MAIN_FILE:%c=%.o)
+OBJS		=	$(SRCS:%.c=$(DIR_OBJS)%.o)
 
 NAME		=	libft_malloc.so
 
@@ -135,14 +138,15 @@ $(LIBFT):
 				@$(MAKE) -C $(DIR_LIBFT) MAKEFLAGS=
 				@printf "$(_BLUE) Back in malloc's makefile $(_END)\n"
 
-$(MAIN):		$(NAME) $(STATIC_LIB)
-				@$(CC) $(CC_FLAGS) -L. -lft_malloc -I $(DIR_HEADERS) -I $(DIR_LIBFT_HEADERS) $(MAIN_FILE) -o $(MAIN)
-				@printf "$(_GREEN) Executable '$(MAIN)' compiled. $(_END)✅\n"
+$(MAIN):		$(NAME) $(STATIC_LIB) $(MAIN_OBJ)
+				@$(CC) $(CC_FLAGS) -L. -lft_malloc -I $(DIR_HEADERS) -I $(DIR_LIBFT_HEADERS) $(MAIN_OBJ) -o $(MAIN)
+				@printf "\033[2K\r$(_GREEN) Executable '$(MAIN)' compiled. $(_END)✅\n"
 
 $(STATIC_LIB):
 				@cp -f $(LIBFT) ./$(STATIC_LIB)
 				@ar rc $(STATIC_LIB) $(OBJS)
 				@ranlib $(STATIC_LIB)
+				@printf "$(_GREEN) Library '$(STATIC_LIB)' created. $(_END)✅\n"
 
 # COMPILED_SOURCES RULES #
 
@@ -156,6 +160,12 @@ $(DIR_OBJS):	$(SUB_DIR_OBJS)
 
 $(SUB_DIR_OBJS):
 				@mkdir -p $(SUB_DIR_OBJS)
+
+$(MAIN_OBJ):			| $(DIR_MAIN_OBJS)
+
+$(DIR_MAIN_OBJS)%.o:	%.c
+						@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
+						@$(CC) $(CC_FLAGS) -I $(DIR_HEADERS) -I $(DIR_LIBFT_HEADERS) -c $< -o $@
 
 # OBLIGATORY PART #
 

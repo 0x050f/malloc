@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2020/09/16 14:40:14 by lmartin          ###   ########.fr       */
+/*   Updated: 2020/09/17 02:36:11 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <pthread.h>
 # include <sys/mman.h>
 # include <sys/resource.h>
+
+# include <errno.h>
+# include <string.h>
 
 # include "libft.h"
 
