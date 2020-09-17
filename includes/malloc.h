@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2020/09/17 02:36:11 by lmartin          ###   ########.fr       */
+/*   Updated: 2020/09/17 05:03:46 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # include <string.h>
 
 # include "libft.h"
+
+# define NB_ALLOC			100
+# define TINY_ALLOC			256
+# define SMALL_ALLOC		4096
+
+t_list			*g_blocks;
 
 void		free(void *ptr);
 void		*malloc(size_t size);
