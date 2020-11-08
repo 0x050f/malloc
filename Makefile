@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 10:53:35 by lmartin           #+#    #+#              #
-#    Updated: 2020/09/17 03:06:12 by lmartin          ###   ########.fr        #
+#    Updated: 2020/11/08 14:05:21 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,7 +95,9 @@ MAIN_FILE		=	main.c
 
 SRCS			=	malloc.c \
 					free.c \
-					realloc.c
+					realloc.c \
+					show_alloc_mem.c \
+					zone.c
 
 # COMPILED_SOURCES #
 

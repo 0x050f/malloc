@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2020/09/17 05:03:46 by lmartin          ###   ########.fr       */
+/*   Updated: 2020/11/08 16:23:20 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,36 @@
 
 # include "libft.h"
 
+/* TO DELETE */
+#include <stdio.h>
+
+typedef unsigned int		t_bool;
+
+# define false				0
+# define true				1
+
 # define NB_ALLOC			100
 # define TINY_ALLOC			256
 # define SMALL_ALLOC		4096
 
-t_list			*g_blocks;
+typedef struct				s_block
+{
+	int						size;
+	void					*next;
+}							t_block;
+
+typedef struct				s_zone
+{
+	int						size;
+	t_block					*blocks;
+	void					*next;
+}							t_zone;
 
 void		free(void *ptr);
 void		*malloc(size_t size);
 void		*realloc(void *ptr, size_t size);
 void		show_alloc_mem(void);
+
+t_zone		*create_zone(size_t size);
 
 #endif
