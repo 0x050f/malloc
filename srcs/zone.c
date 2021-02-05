@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:05:37 by lmartin           #+#    #+#             */
-/*   Updated: 2020/11/08 17:28:46 by lmartin          ###   ########.fr       */
+/*   Updated: 2020/11/19 11:47:22 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_block		*add_block_to_zone(t_zone *zone, size_t size)
 		size_taken = get_size_taken_zone(zone);
 		if (zone->size - size_taken > block_size)
 		{
-			
+			// TODO: adding zone
 		}
 	}
 	block->size = block_size;

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:18:31 by lmartin           #+#    #+#             */
-/*   Updated: 2020/11/08 17:31:11 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/06 00:10:46 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void		*malloc(size_t size)
 {
 	static t_zone		*zones;
 
-	zones = create_zone(size);
-	add_block_to_zone(zones);
+	if (!zones)
+		zones = create_zone(size);
+//	add_block_to_zone(zones, size);
 	/*
 	addr = NULL;
 	if (size < TINY_ALLOC)

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2020/11/08 16:23:20 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/06 00:12:23 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@
 
 # include <errno.h>
 # include <string.h>
-
-# include "libft.h"
-
-/* TO DELETE */
-#include <stdio.h>
 
 typedef unsigned int		t_bool;
 
@@ -48,6 +43,11 @@ typedef struct				s_zone
 	t_block					*blocks;
 	void					*next;
 }							t_zone;
+
+/*
+** utils.c
+*/
+size_t		ft_strlen(const char *s);
 
 void		free(void *ptr);
 void		*malloc(size_t size);
