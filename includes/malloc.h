@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/06 00:12:23 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/06 17:30:05 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,35 @@ typedef struct				s_block
 typedef struct				s_zone
 {
 	int						size;
-	t_block					*blocks;
+	void					*blocks;
 	void					*next;
 }							t_zone;
 
-/*
-** utils.c
-*/
-size_t		ft_strlen(const char *s);
+t_zone		*g_zones;
 
 void		free(void *ptr);
 void		*malloc(size_t size);
 void		*realloc(void *ptr, size_t size);
 void		show_alloc_mem(void);
 
+/*
+** utils.c
+*/
+size_t		ft_strlen(const char *s);
+
+/*
+** zone.c
+*/
+
+int			get_alloc_size(size_t block_size);
+int			get_zone_size(size_t block_size);
 t_zone		*create_zone(size_t size);
+int			get_size_taken_zone(t_zone *zone);
+
+/*
+** block.c
+*/
+
+void		*add_block_to_zone(t_zone *zone, size_t size);
 
 #endif

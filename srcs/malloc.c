@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:18:31 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/06 00:10:46 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/06 17:17:30 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,27 @@
 
 void		*malloc(size_t size)
 {
-	static t_zone		*zones;
+	void				*alloc;
+	t_zone				*last;
+	t_zone				*ptr;
+	int					zone_size;
 
-	if (!zones)
-		zones = create_zone(size);
-//	add_block_to_zone(zones, size);
-	/*
-	addr = NULL;
-	if (size < TINY_ALLOC)
+	alloc = NULL;
+	zone_size = get_zone_size(size);
+	if (!g_zones)
+		g_zones = create_zone(size);
+	ptr = g_zones;
+	while (!alloc && ptr)
 	{
-		size = (NB_ALLOC / (page_size / TINY_ALLOC)) * page_size;
-		printf("TINY %d\n", TINY_ALLOC);
-		block = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
+		if (zone_size == ptr->size)
+			alloc = add_block_to_zone(ptr, size);
+		last = ptr;
+		ptr = ptr->next;
 	}
-	else if (size < SMALL_ALLOC)
+	if (!alloc)
 	{
-		size = (NB_ALLOC / (page_size / SMALL_ALLOC)) * page_size;
-		printf("SMALL %d\n", SMALL_ALLOC);
-		block = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
+		last->next = create_zone(size);
+		alloc = add_block_to_zone(last->next, size);
 	}
-	else
-	{
-		printf("LARGE %d and beyond\n", SMALL_ALLOC + 1);
-		block = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
-	}
-	if (block == MAP_FAILED)
-	{
-		write(STDERR_FILENO, strerror(errno), ft_strlen(strerror(errno)));
-		write(1, "\n", 1);
-		addr = NULL;
-	}
-	*/
-	return (NULL);
+	return (alloc);
 }

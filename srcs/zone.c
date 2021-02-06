@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:05:37 by lmartin           #+#    #+#             */
-/*   Updated: 2020/11/19 11:47:22 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/06 17:28:57 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int			get_zone_size(size_t block_size)
 
 t_zone		*create_zone(size_t size)
 {
-	t_zone		new_zone;
+	t_zone		*new_zone;
 	int			zone_size;
 
-	zone_size = get_zone_size((size_t)(size + sizeof(t_block)));
+	zone_size = get_zone_size((size_t)(size + sizeof(t_zone)));
 	new_zone = mmap(NULL, zone_size, PROT_READ | PROT_WRITE, MAP_PRIVATE |
-MAP ANON, -1, 0);
-	new_zone->size = size;
+MAP_ANON, -1, 0);
+	new_zone->size = zone_size;
 	new_zone->blocks = NULL;
 	new_zone->next = NULL;
 	return (new_zone);
@@ -74,31 +74,4 @@ int			get_size_taken_zone(t_zone *zone)
 		}
 	}
 	return (size);
-}
-
-t_block		*add_block_to_zone(t_zone *zone, size_t size)
-{
-	int			block_size;
-	int			size_taken;
-	t_block		*block;
-
-	if (zone->size - sizeof(t_zone) < size + sizeof(t_block))
-		return (NULL);
-	block_size = get_alloc_size(size + sizeof(t_block));
-	if (!zone->blocks)
-	{
-		zone->blocks = zone + sizeof(t_zone);
-		block = zone->blocks;
-	}
-	else
-	{
-		size_taken = get_size_taken_zone(zone);
-		if (zone->size - size_taken > block_size)
-		{
-			// TODO: adding zone
-		}
-	}
-	block->size = block_size;
-	block->next = NULL;
-	return (block);
 }

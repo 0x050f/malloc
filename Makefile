@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 10:53:35 by lmartin           #+#    #+#              #
-#    Updated: 2021/02/06 00:12:48 by lmartin          ###   ########.fr        #
+#    Updated: 2021/02/06 17:29:42 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ SRCS			=	malloc.c \
 					realloc.c \
 					show_alloc_mem.c \
 					zone.c \
+					block.c \
 					utils.c
 
 # COMPILED_SOURCES #
@@ -132,7 +133,6 @@ $(MAIN):		$(NAME) $(STATIC_LIB) $(MAIN_OBJ)
 				@printf "\033[2K\r$(_GREEN) Executable '$(MAIN)' compiled. $(_END)✅\n"
 
 $(STATIC_LIB):
-				@cp -f ./$(STATIC_LIB)
 				@ar rc $(STATIC_LIB) $(OBJS)
 				@ranlib $(STATIC_LIB)
 				@printf "$(_GREEN) Library '$(STATIC_LIB)' created. $(_END)✅\n"

@@ -6,34 +6,39 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
-/*   Updated: 2020/09/17 04:06:01 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/06 17:19:32 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void	lol(void)
+char	*ft_strdup(const char *s1)
 {
-	char	*addr;
+	int		i;
+	char	*pt;
 
-	addr = malloc(16);
-	if (addr)
-	{
-		addr[0] = 's';
-		addr[1] = 's';
-		addr[2] = '\0';
-		write(1, addr, ft_strlen(addr));
-//		free(addr);
-	}
+	i = 0;
+	while (s1[i])
+		i++;
+	if (!(pt = malloc((i + 1) * sizeof(char))))
+		return (0);
+	i = -1;
+	while (s1[++i])
+		pt[i] = s1[i];
+	pt[i] = '\0';
+	return (pt);
 }
 
 int		main(void)
 {
 	int		i;
+	char	*array[1024];
 	
-	lol();
-	i = 0;
-	while (i < 1024)
-		i++;
+	i = -1;
+	while (++i < 1024)
+		array[i] = ft_strdup("looool\n");
+	i = -1;
+	while (++i < 1024)
+		write(STDOUT_FILENO, array[i], ft_strlen(array[i]));
 	return (i);
 }
