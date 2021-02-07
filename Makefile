@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 10:53:35 by lmartin           #+#    #+#              #
-#    Updated: 2021/02/06 17:29:42 by lmartin          ###   ########.fr        #
+#    Updated: 2021/02/07 14:19:08 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ _IWHITE		=	\e[47m
 
 NORMINETTE	:=	$(shell which norminette)
 
-ifeq ($$?, 1)
+ifeq (, $(shell which norminette))
 	NORMINETTE := ${HOME}/.norminette/norminette.rb
 endif
 
@@ -173,7 +173,6 @@ fclean:			clean
 				@printf "$(_RED) '"$(DYNAMIC_LIB)"' has been deleted. $(_END)🗑️\n"
 
 norm:
-				@printf "$(_BLUE) Back in malloc's makefile $(_END)\n"
 				@$(NORMINETTE) $(DIR_SRCS)
 				@$(NORMINETTE) $(DIR_HEADERS)
 
