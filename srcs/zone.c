@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:05:37 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/06 17:28:57 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/07 15:18:47 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,24 @@ int			get_size_taken_zone(t_zone *zone)
 		}
 	}
 	return (size);
+}
+
+t_zone		*find_zone(void *block)
+{
+	t_zone		*tmp;
+	t_block		*ptr;
+
+	tmp = g_zones;
+	while (tmp)
+	{
+		ptr = tmp->blocks;
+		while (ptr)
+		{
+			if ((void *)ptr == block)
+				return (tmp);
+			ptr = ptr->next;
+		}
+		tmp = tmp->next;
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/06 17:19:32 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/07 15:19:07 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ int		main(void)
 		array[i] = ft_strdup("looool\n");
 	i = -1;
 	while (++i < 1024)
+	{
 		write(STDOUT_FILENO, array[i], ft_strlen(array[i]));
+		free(array[i]);
+	}
 	return (i);
 }
