@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/07 15:19:07 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/08 16:27:14 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,27 @@ char	*ft_strdup(const char *s1)
 int		main(void)
 {
 	int		i;
-	char	*array[1024];
+	char	*tiny[10];
+	char	*medium[10];
+	char	*big[10];
 	
 	i = -1;
-	while (++i < 1024)
-		array[i] = ft_strdup("looool\n");
+	while (++i < 10)
+		tiny[i] = ft_strdup("salut\n");
+	i = -1;
+	while (++i < 10)
+		medium[i] = malloc(2500);
+	i = -1;
+	while (++i < 10)
+		big[i] = malloc(5000);
+	show_alloc_mem();
+	/*
 	i = -1;
 	while (++i < 1024)
 	{
-		write(STDOUT_FILENO, array[i], ft_strlen(array[i]));
-		free(array[i]);
+		write(STDOUT_FILENO, tiny[i], ft_strlen(tiny[i]));
+		free(tiny[i]);
 	}
+	*/
 	return (i);
 }

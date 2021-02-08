@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:05:37 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/07 15:18:47 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:19:24 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_zone		*create_zone(size_t size)
 	t_zone		*new_zone;
 	int			zone_size;
 
-	zone_size = get_zone_size((size_t)(size + sizeof(t_zone)));
+	zone_size = get_zone_size((size_t)(size + sizeof(t_block)));
 	new_zone = mmap(NULL, zone_size, PROT_READ | PROT_WRITE, MAP_PRIVATE |
 MAP_ANON, -1, 0);
 	new_zone->size = zone_size;

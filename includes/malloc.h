@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/07 14:44:46 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/08 16:03:56 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ void					show_alloc_mem(void);
 /*
 ** utils.c
 */
+
 size_t					ft_strlen(const char *s);
+void					ft_putnbr(unsigned long n);
+void					ft_puthexa(unsigned long n);
 
 /*
 ** zone.c
