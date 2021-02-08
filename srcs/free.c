@@ -6,11 +6,11 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 12:56:14 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/07 15:18:31 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/08 16:34:34 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "malloc.h"
+#include "malloc.h"
 
 void		remove_zone(t_zone *zone)
 {

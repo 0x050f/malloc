@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/08 16:03:56 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/08 16:34:53 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@
 # include <string.h>
 
 typedef unsigned int	t_bool;
-
-# define false			0
-# define true			1
 
 # define NB_ALLOC		100
 # define TINY_ALLOC		256

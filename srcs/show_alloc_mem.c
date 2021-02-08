@@ -6,13 +6,11 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 13:01:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/08 16:27:37 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/08 16:34:17 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
-#include <stdio.h>
 
 size_t		print_block(t_block *block)
 {
