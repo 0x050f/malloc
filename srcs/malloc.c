@@ -6,13 +6,13 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:18:31 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 15:44:45 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:55:27 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-pthread_mutex_t g_mutex			= PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void		*malloc(size_t size)
 {
