@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 10:31:35 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 12:34:07 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,44 +32,22 @@ char	*ft_strdup(const char *s1)
 int		main(void)
 {
 	int		i;
-	char	*tiny[140];
-	/*
-	char	*medium[10];
-	char	*big[10];
-	*/
+	char	*tiny[5];
 	
 	i = -1;
-	while (++i < 140)
-		tiny[i] = malloc(200);
+	while (++i < 5)
+		tiny[i] = ft_strdup("salut\n");
 	show_alloc_mem();
-	free(tiny[0]);
-	free(tiny[3]);
-	free(tiny[5]);
-	tiny[0] = malloc(220);
-	tiny[3] = malloc(100);
-	tiny[5] = malloc(80);
-	malloc(200);
-	malloc(200);
-	/*
 	i = -1;
-	while (++i < 10)
-		medium[i] = malloc(2500);
-	i = -1;
-	while (++i < 10)
-		big[i] = malloc(5000);
-	*/
-	malloc(42);
-	malloc(84);
-	malloc(3725);
-	malloc(48847);
-	show_alloc_mem();
-	/*
-	i = -1;
-	while (++i < 1024)
-	{
+	while (++i < 5)
 		write(STDOUT_FILENO, tiny[i], ft_strlen(tiny[i]));
-		free(tiny[i]);
-	}
-	*/
+	tiny[0] = realloc(tiny[0], 30);
+	tiny[1] = realloc(tiny[1], 7);
+	tiny[2] = realloc(tiny[2], 3);
+	tiny[2][2] = '\0';
+	show_alloc_mem();
+	i = -1;
+	while (++i < 5)
+		write(STDOUT_FILENO, tiny[i], ft_strlen(tiny[i]));
 	return (0);
 }

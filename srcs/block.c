@@ -6,11 +6,21 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:18:03 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 11:41:32 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 12:04:40 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+t_block		*find_block(t_zone *zone, void *block)
+{
+	t_block		*ptr;
+
+	ptr = zone->blocks;
+	while (ptr && ((void *)ptr + sizeof(t_block)) != block)
+		ptr = ptr->next;
+	return (ptr);
+}
 
 void		*add_block(void *addr, size_t size, void *next)
 {

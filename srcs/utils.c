@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 00:11:15 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/08 16:05:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 12:36:11 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,16 @@ void			ft_puthexa(unsigned long n)
 		nnbr /= 16;
 	}
 	write(STDOUT_FILENO, str, ft_strlen(str));
+}
+
+void			*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char		*pt_src;
+	char		*pt_dst;
+
+	pt_src = (char *)src;
+	pt_dst = (char *)dst;
+	while (n--)
+		*pt_dst++ = *pt_src++;
+	return (dst);
 }

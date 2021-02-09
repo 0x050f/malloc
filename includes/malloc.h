@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 10:03:36 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 12:15:51 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,6 @@ void					*realloc(void *ptr, size_t size);
 void					show_alloc_mem(void);
 
 /*
-** utils.c
-*/
-
-size_t					ft_strlen(const char *s);
-void					ft_putnbr(unsigned long n);
-void					ft_puthexa(unsigned long n);
-
-/*
 ** zone.c
 */
 
@@ -70,6 +62,16 @@ t_zone					*find_zone(void *block);
 ** block.c
 */
 
+t_block					*find_block(t_zone *zone, void *block);
 void					*add_block_to_zone(t_zone *zone, size_t size);
+
+/*
+** utils.c
+*/
+
+size_t					ft_strlen(const char *s);
+void					ft_putnbr(unsigned long n);
+void					ft_puthexa(unsigned long n);
+void					*ft_memcpy(void *dst, const void *src, size_t n);
 
 #endif

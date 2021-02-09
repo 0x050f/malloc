@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 12:56:50 by lmartin           #+#    #+#             */
-/*   Updated: 2020/09/16 14:39:40 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 12:35:55 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,28 @@
 
 void		*realloc(void *ptr, size_t size)
 {
-	ft_strlen("loool");
-	(void)ptr;
-	(void)size;
-	return (NULL);
+	size_t		block_size;
+	t_zone		*zone;
+	t_block		*block;
+	void		*new;
+
+	block_size = size + sizeof(t_block);
+	if (!ptr)
+		return (malloc(size));
+	zone = find_zone(ptr);
+	if (!zone)
+		return (malloc(size));
+	block = find_block(zone, ptr);
+	if (block->size >= block_size || (size_t)(block->next -
+(void *)block) >= block_size)
+	{
+		block->size = block_size;
+		return (ptr);
+	}
+	new = malloc(size);
+	if (!new)
+		return (NULL);
+	new = ft_memcpy(new, ptr, block->size - sizeof(t_block));
+	free(ptr);
+	return (new);
 }
