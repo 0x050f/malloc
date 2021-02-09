@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:18:31 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/06 17:17:30 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 11:36:01 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		*malloc(size_t size)
 	void				*alloc;
 	t_zone				*last;
 	t_zone				*ptr;
-	int					zone_size;
+	size_t				zone_size;
 
 	alloc = NULL;
 	zone_size = get_zone_size(size);

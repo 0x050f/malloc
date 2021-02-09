@@ -6,13 +6,13 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:05:37 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 09:20:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 09:57:23 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-int			get_alloc_size(size_t block_size)
+size_t		get_alloc_size(size_t block_size)
 {
 	if (block_size <= TINY_ALLOC)
 		return (TINY_ALLOC);
@@ -21,11 +21,11 @@ int			get_alloc_size(size_t block_size)
 	return (block_size);
 }
 
-int			get_zone_size(size_t block_size)
+size_t		get_zone_size(size_t block_size)
 {
-	int		new_size;
-	int		page_size;
-	int		alloc_size;
+	size_t	new_size;
+	size_t	page_size;
+	size_t	alloc_size;
 
 	page_size = getpagesize();
 	alloc_size = get_alloc_size(block_size);
@@ -47,7 +47,7 @@ int			get_zone_size(size_t block_size)
 t_zone		*create_zone(size_t size)
 {
 	t_zone		*new_zone;
-	int			zone_size;
+	size_t		zone_size;
 
 	zone_size = get_zone_size((size_t)(size + sizeof(t_block)));
 	new_zone = mmap(NULL, zone_size, PROT_READ | PROT_WRITE, MAP_PRIVATE |
@@ -58,9 +58,9 @@ MAP_ANON, -1, 0);
 	return (new_zone);
 }
 
-int			get_size_taken_zone(t_zone *zone)
+size_t		get_size_taken_zone(t_zone *zone)
 {
-	int			size;
+	size_t		size;
 	t_block		*tmp;
 
 	size = sizeof(t_zone);

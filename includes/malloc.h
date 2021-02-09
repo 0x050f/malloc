@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/08 16:34:53 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 10:03:36 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ typedef unsigned int	t_bool;
 
 typedef struct			s_block
 {
-	int					size;
+	size_t				size;
 	void				*next;
 }						t_block;
 
 typedef struct			s_zone
 {
-	int					size;
+	size_t				size;
 	void				*blocks;
 	void				*next;
 }						t_zone;
@@ -60,10 +60,10 @@ void					ft_puthexa(unsigned long n);
 ** zone.c
 */
 
-int						get_alloc_size(size_t block_size);
-int						get_zone_size(size_t block_size);
+size_t					get_alloc_size(size_t block_size);
+size_t					get_zone_size(size_t block_size);
 t_zone					*create_zone(size_t size);
-int						get_size_taken_zone(t_zone *zone);
+size_t					get_size_taken_zone(t_zone *zone);
 t_zone					*find_zone(void *block);
 
 /*
