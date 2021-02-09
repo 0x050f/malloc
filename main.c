@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 12:34:07 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 13:14:54 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,30 @@ char	*ft_strdup(const char *s1)
 	return (pt);
 }
 
+#define M (1024 * 1024)
+
+void print(char *s)
+{
+    write(1, s, strlen(s));
+}
+
 int		main(void)
 {
+	char *addr1;
+	char *addr3;
+
+    addr1 = (char*)malloc(16*M);
+    strcpy(addr1, "Bonjour\n");
+    print(addr1);
+	show_alloc_mem();
+    addr3 = (char*)realloc(addr1, 128*M);
+	addr3[120*M] = 42;
+    print(addr3);
+	show_alloc_mem();
+//    addr3[127*M] = 42;
+//    print(addr3);
+    return (0);
+	/*
 	int		i;
 	char	*tiny[5];
 	
@@ -50,4 +72,5 @@ int		main(void)
 	while (++i < 5)
 		write(STDOUT_FILENO, tiny[i], ft_strlen(tiny[i]));
 	return (0);
+	*/
 }
