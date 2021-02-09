@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:05:37 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/08 15:19:24 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 09:20:27 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_zone		*find_zone(void *block)
 		ptr = tmp->blocks;
 		while (ptr)
 		{
-			if ((void *)ptr == block)
+			if (((void *)ptr + sizeof(t_block)) == block)
 				return (tmp);
 			ptr = ptr->next;
 		}

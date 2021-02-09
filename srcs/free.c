@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 12:56:14 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/08 16:34:34 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 09:20:16 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		remove_block(t_zone *zone, void *block)
 
 	prev = NULL;
 	ptr = zone->blocks;
-	while (ptr && (void *)ptr != block)
+	while (ptr && ((void *)ptr + sizeof(t_block)) != block)
 	{
 		prev = ptr;
 		ptr = ptr->next;

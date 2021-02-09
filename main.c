@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/08 16:27:14 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 09:18:46 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,33 @@ int		main(void)
 {
 	int		i;
 	char	*tiny[10];
+	/*
 	char	*medium[10];
 	char	*big[10];
+	*/
 	
 	i = -1;
 	while (++i < 10)
-		tiny[i] = ft_strdup("salut\n");
+		tiny[i] = malloc(200);
+	show_alloc_mem();
+	i = -1;
+	while (++i < 5)
+		free(tiny[i]);
+	show_alloc_mem();
+	/*
+	i = -1;
+	while (++i < 20)
+		tiny[i] = malloc(200);
+	*/
+	/*
 	i = -1;
 	while (++i < 10)
 		medium[i] = malloc(2500);
 	i = -1;
 	while (++i < 10)
 		big[i] = malloc(5000);
-	show_alloc_mem();
+	*/
+//	show_alloc_mem();
 	/*
 	i = -1;
 	while (++i < 1024)
@@ -54,5 +68,5 @@ int		main(void)
 		free(tiny[i]);
 	}
 	*/
-	return (i);
+	return (0);
 }
