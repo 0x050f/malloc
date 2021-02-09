@@ -6,11 +6,13 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:18:31 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 11:36:01 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:44:45 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+pthread_mutex_t g_mutex			= PTHREAD_MUTEX_INITIALIZER;
 
 void		*malloc(size_t size)
 {
@@ -20,6 +22,7 @@ void		*malloc(size_t size)
 	size_t				zone_size;
 
 	alloc = NULL;
+	pthread_mutex_lock(&g_mutex);
 	zone_size = get_zone_size(size);
 	if (!g_zones)
 		g_zones = create_zone(size);
@@ -36,5 +39,6 @@ void		*malloc(size_t size)
 		last->next = create_zone(size);
 		alloc = add_block_to_zone(last->next, size);
 	}
+	pthread_mutex_unlock(&g_mutex);
 	return (alloc);
 }

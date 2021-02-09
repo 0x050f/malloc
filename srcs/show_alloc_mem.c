@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 13:01:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/08 16:34:17 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:36:18 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void		show_alloc_mem(void)
 	t_zone		*tmp;
 
 	total = 0;
+	pthread_mutex_lock(&g_mutex);
 	tmp = g_zones;
 	while (tmp)
 	{
@@ -63,4 +64,5 @@ void		show_alloc_mem(void)
 	write(STDOUT_FILENO, "Total : ", 8);
 	ft_putnbr(total);
 	write(STDOUT_FILENO, " bytes\n", 7);
+	pthread_mutex_unlock(&g_mutex);
 }

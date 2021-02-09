@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 12:15:51 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:47:44 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,19 @@ typedef struct			s_zone
 }						t_zone;
 
 t_zone					*g_zones;
+extern pthread_mutex_t	g_mutex;
 
 void					free(void *ptr);
 void					*malloc(size_t size);
 void					*realloc(void *ptr, size_t size);
 void					show_alloc_mem(void);
+
+/*
+** free.c
+*/
+
+void					remove_zone(t_zone *zone);
+void					remove_block(t_zone *zone, void *block);
 
 /*
 ** zone.c

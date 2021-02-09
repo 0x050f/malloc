@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 12:56:14 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 11:54:00 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:34:06 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ void		free(void *ptr)
 
 	if (!ptr)
 		return ;
+	pthread_mutex_lock(&g_mutex);
 	zone = find_zone(ptr);
 	if (!zone)
 		return ;
 	remove_block(zone, ptr);
 	if (!zone->blocks)
 		remove_zone(zone);
+	pthread_mutex_unlock(&g_mutex);
 }
