@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 12:56:50 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 12:35:55 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:37:54 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void		*realloc(void *ptr, size_t size)
 		return (malloc(size));
 	zone = find_zone(ptr);
 	if (!zone)
-		return (malloc(size));
+		return (NULL);
 	block = find_block(zone, ptr);
-	if (block->size >= block_size || (size_t)(block->next -
-(void *)block) >= block_size)
+	if (block->size >= block_size || (block->next && (size_t)(block->next -
+(void *)block) >= block_size))
 	{
 		block->size = block_size;
 		return (ptr);

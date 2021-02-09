@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 13:14:54 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:37:59 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int		main(void)
     print(addr1);
 	show_alloc_mem();
     addr3 = (char*)realloc(addr1, 128*M);
-	addr3[120*M] = 42;
+	ft_putnbr(100*M);
+	addr3[127*M] = 42;
     print(addr3);
 	show_alloc_mem();
-//    addr3[127*M] = 42;
 //    print(addr3);
     return (0);
 	/*
