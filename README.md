@@ -29,3 +29,28 @@ Anyway there will be a link libft_malloc.so that will link with the previous fil
 
 Compile your executable you want to launch separetly, then to launch it with this library you can use one of the run_file (*run_linux.sh* or *run_mac.sh*) in the **run_scripts** folder as follow: `./run_scripts/run_X.sh ./your_executable`
 or you can tape the instructions that are on the run file separatly, then launch your program.
+
+## Tests
+
+### Defense testing
+#### Compilation
+To compile all the files as asked during the defense you can launch commands as follow:
+```
+gcc -o test0 tests/test0.c
+gcc -o test1 tests/test1.c
+gcc -o test2 tests/test2.c
+gcc -o test3_0 tests/test3_0.c
+gcc -o test3_1 tests/test3_1.c
+gcc -o test4 tests/test4.c
+gcc -o test5 tests/test5.c -L. -lft_malloc
+```
+#### Execute
+On execution during the defense you can launch commands as follow:
+```
+# on Mac
+/usr/bin/time -l ./testX
+./run_scripts/run_mac.sh /usr/bin/time -l ./testX
+# on Linux
+/usr/bin/time -v ./testX
+./run_scripts/run_linux.sh /usr/bin/time -v ./testX
+```
