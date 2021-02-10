@@ -6,11 +6,9 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 15:38:42 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/10 10:11:04 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "malloc.h"
 
 char	*ft_strdup(const char *s1)
 {

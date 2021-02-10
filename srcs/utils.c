@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 00:11:15 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 12:47:15 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/10 10:09:24 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			ft_putnbr(size_t n)
 void			ft_puthexa(unsigned long n)
 {
 	int				i;
-	char			str[10];
+	char			str[20];
 	unsigned long	nnbr;
 	int				size;
 

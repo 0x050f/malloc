@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 10:53:35 by lmartin           #+#    #+#              #
-#    Updated: 2021/02/07 14:19:08 by lmartin          ###   ########.fr        #
+#    Updated: 2021/02/10 09:53:43 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,9 +62,9 @@ endif
 
 CC			=	gcc
 
-CC_FLAGS	=	-Wall -Wextra -Werror
+# fPIC needed to compile on xubuntu because of mutex
 
-SANITIZE	=	-g3 -fsanitize=address
+CC_FLAGS	=	-Wall -Wextra -Werror -fPIC
 
 # DELETE #
 
@@ -79,15 +79,9 @@ DIR_SRCS		=	./srcs/
 
 DIR_OBJS		=	./compiled_srcs/
 
-DIR_MAIN_OBJS	=	./compiled_srcs/
-
 SUB_DIRS		=	.
 
 SUB_DIR_OBJS	=	$(SUB_DIRS:%=$(DIR_OBJS)%)
-
-# FILES #
-
-MAIN_FILE		=	main.c
 
 SRCS			=	malloc.c \
 					free.c \
@@ -99,17 +93,11 @@ SRCS			=	malloc.c \
 
 # COMPILED_SOURCES #
 
-MAIN_OBJ	=	$(MAIN_FILE:%.c=$(DIR_OBJS)%.o)
-
 OBJS		=	$(SRCS:%.c=$(DIR_OBJS)%.o)
 
 NAME		=	libft_malloc.so
 
 DYNAMIC_LIB =	libft_malloc_$(HOSTTYPE).so
-
-STATIC_LIB	=	libft_malloc.a
-
-MAIN		=	main
 
 # **************************************************************************** #
 
@@ -128,15 +116,6 @@ $(DYNAMIC_LIB):	$(OBJS)
 				@$(CC) $(CC_FLAGS) $(OBJS) -shared -o $(DYNAMIC_LIB)
 				@printf "$(_GREEN) Library '$(DYNAMIC_LIB)' created. $(_END)✅\n"
 
-$(MAIN):		$(NAME) $(STATIC_LIB) $(MAIN_OBJ)
-				@$(CC) $(CC_FLAGS) -L. -lft_malloc -I $(DIR_HEADERS) $(MAIN_OBJ) -o $(MAIN)
-				@printf "\033[2K\r$(_GREEN) Executable '$(MAIN)' compiled. $(_END)✅\n"
-
-$(STATIC_LIB):
-				@ar rc $(STATIC_LIB) $(OBJS)
-				@ranlib $(STATIC_LIB)
-				@printf "$(_GREEN) Library '$(STATIC_LIB)' created. $(_END)✅\n"
-
 # COMPILED_SOURCES RULES #
 
 $(OBJS):		| $(DIR_OBJS)
@@ -150,12 +129,6 @@ $(DIR_OBJS):	$(SUB_DIR_OBJS)
 $(SUB_DIR_OBJS):
 				@mkdir -p $(SUB_DIR_OBJS)
 
-$(MAIN_OBJ):			| $(DIR_MAIN_OBJS)
-
-$(DIR_MAIN_OBJS)%.o:	%.c
-						@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
-						@$(CC) $(CC_FLAGS) -I $(DIR_HEADERS) -c $< -o $@
-
 # OBLIGATORY PART #
 
 clean:
@@ -163,10 +136,6 @@ clean:
 				@printf "$(_RED) '"$(DIR_OBJS)"' has been deleted. $(_END)🗑️\n"
 
 fclean:			clean
-				@$(RM) $(MAIN)
-				@printf "$(_RED) '"$(MAIN)"' has been deleted. $(_END)🗑️\n"
-				@$(RM) $(STATIC_LIB)
-				@printf "$(_RED) '"$(STATIC_LIB)"' has been deleted. $(_END)🗑️\n"
 				@$(RM) $(NAME)
 				@printf "$(_RED) '"$(NAME)"' has been deleted. $(_END)🗑️\n"
 				@$(RM) $(DYNAMIC_LIB)

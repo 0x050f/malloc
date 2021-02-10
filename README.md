@@ -27,5 +27,5 @@ Anyway there will be a link libft_malloc.so that will link with the previous fil
 
 ## Execute
 
-Compile your executable you want to launch separetly, then to launch it with this library you can use one of the run_file (*run_linux.sh* or *run_mac.sh*) in the **scripts** folder as follow: `./run_X.sh ./your_executable`
+Compile your executable you want to launch separetly, then to launch it with this library you can use one of the run_file (*run_linux.sh* or *run_mac.sh*) in the **run_scripts** folder as follow: `./run_scripts/run_X.sh ./your_executable`
 or you can tape the instructions that are on the run file separatly, then launch your program.
