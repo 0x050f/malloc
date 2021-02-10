@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 12:56:50 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/10 10:59:43 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/10 11:21:53 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,12 @@ void		*malloc_unthread(size_t size)
 	return (alloc);
 }
 
-void		*realloc(void *ptr, size_t size)
+void		*realloc_unthread(void *ptr, size_t size)
 {
 	t_zone		*zone;
 	t_block		*block;
 	void		*new;
 
-	pthread_mutex_lock(&g_mutex);
-	if (!ptr)
-		return (malloc_unthread(size));
 	zone = find_zone(ptr);
 	if (!zone)
 		return (NULL);
@@ -78,6 +75,17 @@ void		*realloc(void *ptr, size_t size)
 		return (NULL);
 	new = ft_memcpy(new, ptr, block->size - sizeof(t_block));
 	free_unthread(ptr);
+	return (new);
+}
+
+void		*realloc(void *ptr, size_t size)
+{
+	void		*new;
+
+	if (!ptr)
+		return (malloc(size));
+	pthread_mutex_lock(&g_mutex);
+	new = realloc_unthread(ptr, size);
 	pthread_mutex_unlock(&g_mutex);
 	return (new);
 }
