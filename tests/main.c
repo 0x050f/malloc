@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 00:29:09 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/10 10:11:04 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/10 10:27:58 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,18 @@ int		main(void)
 {
 	char *addr1;
 	char *addr3;
+	char *addr4;
+	char *addr5;
 
+	addr1 = malloc(300);
+	addr3 = malloc(300);
+	addr4 = malloc(300);
+	addr5 = malloc(300);
+	show_alloc_mem();
+	free(addr4);
+	addr3 = realloc(addr3, 100);
+	show_alloc_mem();
+	/*
     addr1 = (char*)malloc(16*M);
     strcpy(addr1, "Bonjour\n");
     print(addr1);
@@ -48,6 +59,7 @@ int		main(void)
 	addr3[127*M] = 42;
     print(addr3);
 	show_alloc_mem();
+	*/
 //    print(addr3);
     return (0);
 	/*
