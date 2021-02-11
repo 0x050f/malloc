@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/11 10:10:40 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 11:27:05 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,8 @@
 # define MALLOC_H
 
 # include <unistd.h>
-# include <stddef.h>
-# include <pthread.h>
 # include <sys/mman.h>
-# include <sys/resource.h>
-
-# include <errno.h>
-# include <string.h>
-
-typedef unsigned int	t_bool;
+# include <pthread.h>
 
 # define NB_ALLOC		100
 # define TINY_ALLOC		256
@@ -41,8 +34,17 @@ typedef struct			s_zone
 	void				*next;
 }						t_zone;
 
+/*
+** global
+** g_mutex for thread bonus
+*/
+
 t_zone					*g_zones;
 extern pthread_mutex_t	g_mutex;
+
+/*
+** principal functions
+*/
 
 void					free(void *ptr);
 void					*malloc(size_t size);
