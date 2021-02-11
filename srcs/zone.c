@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:05:37 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/11 10:14:00 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 10:20:01 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ size_t		get_alloc_size(size_t block_size)
 }
 
 /*
-** get the zone size needed calculating
+** get the zone size needed by calculating how many page size are needed for
+** 100+ alloc
 */
 
 size_t		get_zone_size(size_t block_size)
