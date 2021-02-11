@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:18:31 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/11 10:09:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 10:54:33 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		*malloc(size_t size)
 
 	alloc = NULL;
 	pthread_mutex_lock(&g_mutex);
-	zone_size = get_zone_size(size + sizeof(t_block));
+	zone_size = get_zone_size(size);
 	if (!g_zones)
 		g_zones = create_zone(size);
 	ptr = g_zones;

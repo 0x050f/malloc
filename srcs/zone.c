@@ -6,14 +6,14 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:05:37 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/11 10:20:01 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 11:14:47 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
 /*
-** get the alloc_size corresponding to block_size
+** get the alloc_size corresponding to size
 ** (TINY | SMALL | LARGE (block_size))
 */
 
@@ -31,24 +31,24 @@ size_t		get_alloc_size(size_t block_size)
 ** 100+ alloc
 */
 
-size_t		get_zone_size(size_t block_size)
+size_t		get_zone_size(size_t size)
 {
 	size_t	new_size;
 	size_t	page_size;
 	size_t	alloc_size;
 
 	page_size = getpagesize();
-	alloc_size = get_alloc_size(block_size);
-	if (block_size <= SMALL_ALLOC)
+	alloc_size = get_alloc_size(size + sizeof(t_block));
+	if (size + sizeof(t_block) <= SMALL_ALLOC)
 	{
 		new_size = (NB_ALLOC / (page_size / alloc_size) + 1) * page_size;
-		if (new_size - NB_ALLOC * alloc_size < (int)sizeof(t_zone))
+		if (new_size - NB_ALLOC * alloc_size < sizeof(t_zone))
 			new_size += page_size;
 	}
 	else
 	{
 		new_size = (alloc_size / page_size + 1) * page_size;
-		if (new_size - alloc_size < (int)sizeof(t_zone))
+		if (new_size - alloc_size < sizeof(t_zone))
 			new_size += page_size;
 	}
 	return (new_size);
@@ -64,7 +64,7 @@ t_zone		*create_zone(size_t size)
 	t_zone		*new_zone;
 	size_t		zone_size;
 
-	zone_size = get_zone_size(size + sizeof(t_block));
+	zone_size = get_zone_size(size);
 	new_zone = mmap(NULL, zone_size, PROT_READ | PROT_WRITE, MAP_PRIVATE |
 MAP_ANON, -1, 0);
 	new_zone->size = zone_size;
