@@ -6,11 +6,15 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 12:56:14 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/10 11:15:50 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 09:41:44 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+/*
+** remove a zone from memory using munmap on the whole zone->size
+*/
 
 void		remove_zone(t_zone *zone)
 {
@@ -31,6 +35,11 @@ void		remove_zone(t_zone *zone)
 	munmap(zone, zone->size);
 }
 
+/*
+** remove a block from zone reassigning prev/next or beginning of the list
+** on need
+*/
+
 void		remove_block(t_zone *zone, void *block)
 {
 	t_block		*prev;
@@ -48,6 +57,11 @@ void		remove_block(t_zone *zone, void *block)
 	else
 		prev->next = ptr->next;
 }
+
+/*
+** deallocating block of memory pointed by ptr, removing corresponding block
+** and zone if the block was last block in zone.
+*/
 
 void		free(void *ptr)
 {

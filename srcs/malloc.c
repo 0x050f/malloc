@@ -6,13 +6,25 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:18:31 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 15:55:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 10:09:27 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
+/*
+** initialize g_mutex here to prevent compilation from multiple g_mutex value
+** (because we are compiling c files separately).
+** And we can't call pthread_mutex_init because we could call
+** realloc/free/show_alloc_mem before malloc
+*/
+
 pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+/*
+** allocate size bytes of memory, returning the pointer corresponding to the
+** allocated memory block (after t_block struct)
+*/
 
 void		*malloc(size_t size)
 {
@@ -23,7 +35,7 @@ void		*malloc(size_t size)
 
 	alloc = NULL;
 	pthread_mutex_lock(&g_mutex);
-	zone_size = get_zone_size(size);
+	zone_size = get_zone_size(size + sizeof(t_block));
 	if (!g_zones)
 		g_zones = create_zone(size);
 	ptr = g_zones;

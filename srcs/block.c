@@ -6,31 +6,46 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:18:03 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 12:04:40 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 10:12:08 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-t_block		*find_block(t_zone *zone, void *block)
+/*
+** find and return the t_block from the given zone corresponding to the pointer
+** alloc that is the returned allocate memory by a malloc
+*/
+
+t_block		*find_block(t_zone *zone, void *alloc)
 {
 	t_block		*ptr;
 
 	ptr = zone->blocks;
-	while (ptr && ((void *)ptr + sizeof(t_block)) != block)
+	while (ptr && ((void *)ptr + sizeof(t_block)) != alloc)
 		ptr = ptr->next;
 	return (ptr);
 }
 
-void		*add_block(void *addr, size_t size, void *next)
+/*
+** create and add block in memory
+*/
+
+void		*add_block(void *addr, size_t block_size, void *next)
 {
 	t_block		*block;
 
 	block = addr;
-	block->size = size;
+	block->size = block_size;
 	block->next = next;
 	return (block);
 }
+
+/*
+** insert a block at the beginning/middle or end of the zone depending on how
+** many bytes of size we have to allocate and what is the memory left in each
+** interval of other blocks
+*/
 
 void		*insert_block(t_zone *zone, size_t size)
 {
@@ -60,6 +75,12 @@ size, NULL)));
 	}
 	return (NULL);
 }
+
+/*
+** add a block to a zone, creating the first block after the zone struct in
+** memory or calling insert_block is the memory left on the zone is enought.
+** returning null if we can't allock memory on this zone
+*/
 
 void		*add_block_to_zone(t_zone *zone, size_t size)
 {

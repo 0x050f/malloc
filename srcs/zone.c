@@ -6,11 +6,16 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:05:37 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 09:57:23 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 10:14:00 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+/*
+** get the alloc_size corresponding to block_size
+** (TINY | SMALL | LARGE (block_size))
+*/
 
 size_t		get_alloc_size(size_t block_size)
 {
@@ -20,6 +25,10 @@ size_t		get_alloc_size(size_t block_size)
 		return (SMALL_ALLOC);
 	return (block_size);
 }
+
+/*
+** get the zone size needed calculating
+*/
 
 size_t		get_zone_size(size_t block_size)
 {
@@ -44,12 +53,17 @@ size_t		get_zone_size(size_t block_size)
 	return (new_size);
 }
 
+/*
+** create a zone mapping (mmap) suffisant size of memory for 100 allocations and
+** corresponding with page_size using get_zone_size
+*/
+
 t_zone		*create_zone(size_t size)
 {
 	t_zone		*new_zone;
 	size_t		zone_size;
 
-	zone_size = get_zone_size((size_t)(size + sizeof(t_block)));
+	zone_size = get_zone_size(size + sizeof(t_block));
 	new_zone = mmap(NULL, zone_size, PROT_READ | PROT_WRITE, MAP_PRIVATE |
 MAP_ANON, -1, 0);
 	new_zone->size = zone_size;
@@ -57,6 +71,10 @@ MAP_ANON, -1, 0);
 	new_zone->next = NULL;
 	return (new_zone);
 }
+
+/*
+** get the size taken by the struct and all block in zone
+*/
 
 size_t		get_size_taken_zone(t_zone *zone)
 {
@@ -76,7 +94,11 @@ size_t		get_size_taken_zone(t_zone *zone)
 	return (size);
 }
 
-t_zone		*find_zone(void *block)
+/*
+** find the zone that contain a alloc
+*/
+
+t_zone		*find_zone(void *alloc)
 {
 	t_zone		*tmp;
 	t_block		*ptr;
@@ -87,7 +109,7 @@ t_zone		*find_zone(void *block)
 		ptr = tmp->blocks;
 		while (ptr)
 		{
-			if (((void *)ptr + sizeof(t_block)) == block)
+			if (((void *)ptr + sizeof(t_block)) == alloc)
 				return (tmp);
 			ptr = ptr->next;
 		}

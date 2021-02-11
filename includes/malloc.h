@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:19:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/09 15:47:44 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 10:10:40 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ size_t					get_alloc_size(size_t block_size);
 size_t					get_zone_size(size_t block_size);
 t_zone					*create_zone(size_t size);
 size_t					get_size_taken_zone(t_zone *zone);
-t_zone					*find_zone(void *block);
+t_zone					*find_zone(void *alloc);
 
 /*
 ** block.c
 */
 
-t_block					*find_block(t_zone *zone, void *block);
+t_block					*find_block(t_zone *zone, void *alloc);
 void					*add_block_to_zone(t_zone *zone, size_t size);
 
 /*

@@ -6,11 +6,15 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 12:56:50 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/10 11:21:53 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 09:54:01 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+/*
+** same as free() without mutex because we lock it in realloc()
+*/
 
 void		free_unthread(void *ptr)
 {
@@ -25,6 +29,10 @@ void		free_unthread(void *ptr)
 	if (!zone->blocks)
 		remove_zone(zone);
 }
+
+/*
+** same as malloc() without mutex because we lock it in realloc()
+*/
 
 void		*malloc_unthread(size_t size)
 {
@@ -53,6 +61,13 @@ void		*malloc_unthread(size_t size)
 	return (alloc);
 }
 
+/*
+** Check if the alloc_size (TINY - SMALL - LARGE) of the new size corresponding
+** to the old size, if this is the case, check if the new allocation can fit
+** at the same place, otherwise, call malloc, copy memory, and free the old
+** block
+*/
+
 void		*realloc_unthread(void *ptr, size_t size)
 {
 	t_zone		*zone;
@@ -73,10 +88,18 @@ void		*realloc_unthread(void *ptr, size_t size)
 	new = malloc_unthread(size);
 	if (!new)
 		return (NULL);
-	new = ft_memcpy(new, ptr, block->size - sizeof(t_block));
+	if (block->size - sizeof(t_block) <= size)
+		new = ft_memcpy(new, ptr, block->size - sizeof(t_block));
+	else
+		new = ft_memcpy(new, ptr, size);
 	free_unthread(ptr);
 	return (new);
 }
+
+/*
+** reallocate a ptr in memory assigning or not a new block in zone and copying
+** previous data on need (see realloc_unthread) returning the new ptr
+*/
 
 void		*realloc(void *ptr, size_t size)
 {

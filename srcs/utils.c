@@ -6,11 +6,15 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 00:11:15 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/10 10:09:24 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 10:00:21 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+/*
+** return the length of the str s
+*/
 
 size_t			ft_strlen(const char *s)
 {
@@ -21,6 +25,10 @@ size_t			ft_strlen(const char *s)
 		++ptr;
 	return (ptr - s);
 }
+
+/*
+** print a size_t nbr
+*/
 
 void			ft_putnbr(size_t n)
 {
@@ -45,6 +53,10 @@ void			ft_putnbr(size_t n)
 	}
 	write(STDOUT_FILENO, str, ft_strlen(str));
 }
+
+/*
+** print a unsigned long number n in hexa capslock
+*/
 
 void			ft_puthexa(unsigned long n)
 {
@@ -72,6 +84,10 @@ void			ft_puthexa(unsigned long n)
 	}
 	write(STDOUT_FILENO, str, ft_strlen(str));
 }
+
+/*
+** copy byte by byte and n size of the data in src to dst and return dst
+*/
 
 void			*ft_memcpy(void *dst, const void *src, size_t n)
 {

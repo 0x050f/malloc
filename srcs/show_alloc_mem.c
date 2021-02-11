@@ -6,11 +6,16 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 13:01:23 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/10 10:04:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2021/02/11 09:58:31 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+/*
+** print a block (addresses and size in memory)
+** returning the memory allocated (without t_block struct size)
+*/
 
 size_t		print_block(t_block *block)
 {
@@ -24,6 +29,11 @@ size_t		print_block(t_block *block)
 	write(STDOUT_FILENO, " bytes\n", 7);
 	return (block->size - sizeof(t_block));
 }
+
+/*
+** print a zone (adress and blocks in memory)
+** returning the sum in bytes of the memory allocated by each ptr of the zone
+*/
 
 size_t		print_zone(t_zone *zone)
 {
@@ -47,6 +57,11 @@ size_t		print_zone(t_zone *zone)
 	}
 	return (sum);
 }
+
+/*
+** Show allocate zones in memory and their allocations, print also a total
+** of bytes allocated
+*/
 
 void		show_alloc_mem(void)
 {
