@@ -39,7 +39,7 @@ typedef struct			s_zone
 ** g_mutex for thread bonus
 */
 
-t_zone					*g_zones;
+extern t_zone			*g_zones;
 extern pthread_mutex_t	g_mutex;
 
 /*

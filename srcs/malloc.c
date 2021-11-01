@@ -12,6 +12,8 @@
 
 #include "malloc.h"
 
+t_zone			*g_zones = NULL;
+
 /*
 ** initialize g_mutex here to prevent compilation from multiple g_mutex value
 ** (because we are compiling c files separately).
