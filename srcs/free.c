@@ -18,6 +18,8 @@
 
 void		remove_zone(t_zone *zone)
 {
+	size_t	page_size;
+	size_t	size;
 	t_zone	*prev;
 	t_zone	*tmp;
 
@@ -28,11 +30,17 @@ void		remove_zone(t_zone *zone)
 		prev = tmp;
 		tmp = tmp->next;
 	}
-	if (!prev)
-		g_zones = tmp->next;
-	else
-		prev->next = tmp->next;
-	munmap(zone, zone->size);
+	page_size = getpagesize();
+	size = (((SMALL_ALLOC + sizeof(t_block)) * (NB_ALLOC + 1)) / page_size)
+* page_size;
+	if (prev || tmp->next || zone->size < size)
+	{
+		if (!prev)
+			g_zones = tmp->next;
+		else
+			prev->next = tmp->next;
+		munmap(zone, zone->size);
+	}
 }
 
 /*
